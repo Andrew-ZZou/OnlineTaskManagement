@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <link href="css/stylesheet.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="registrationPage">
+    <div class="container">
+      <div class="title">Registration</div>
+      <form class="registration" method="post">
+        <div class="user-details">
+          <div class="input-box">
+            <div data-prop="firstName" class="from-item">
+              <span class="details">First Name:</span>
+              <input type="text" placeholder="Your First Name" name="firstName" required>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div data-prop="lastName" class="from-item">
+              <span class="details">Last Name:</span>
+              <input type="text" placeholder="Your Last Name" name="lastName" required>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div data-prop="email" class="from-item">
+              <span class="details">Email Address:</span>
+              <input type="text" placeholder="Your Email Address" name="email" required>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div data-prop="number" class="from-item">
+              <span class="details">Phone Number:</span>
+              <input type="number" placeholder="Your Phone number" name="phone" required>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div data-prop="password" class="from-item">
+              <span class="details">Password:</span>
+              <input required type="password" placeholder="Enter You Password" name="password" id="password">
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div data-prop="confirm" class="from-item">
+              <span class="details">Confirm Password:</span>
+              <input required type="password" placeholder="Confirm Your Password" name="confirm" id="confirm">
+            </div>
+          </div>
+
+          <div class="from-item">
+            <button class="submit">Submit</button>
+            <button onclick="location.href='index.html'" class="cancel">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

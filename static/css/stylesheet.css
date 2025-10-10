@@ -1,0 +1,87 @@
+/* landing page*/
+.landing {
+  background-image: url('../images/backGround.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  align-content: center;
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  padding: 25px 30px;
+  border-radius: 5px;
+  background-color: rgba(125, 114, 198, 0.8);
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.container .title {
+  font-size: 30px;
+  font-weight: 500;
+  position: relative;
+
+}
+
+.container form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+form .user-details .input-box {
+  margin: 20px 0 12px 0;
+  width: calc(100% / 2 - 20px);
+}
+
+form .user-details .input-box .details {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.user-details .input-box input {
+  height: 40px;
+  width: 100%;
+  display: block;
+  outline: none;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+button {
+  padding: 1px 6px;
+  border: 1px outset buttonborder;
+  border-radius: 3px;
+  text-decoration: none;
+  background-color: lightblue;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.register {
+  display: flex;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+/* Registration page*/
+
+.registrationPage {
+  background-image: url('../images/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  align-content: center;
+}
