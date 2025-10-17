@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dashboard</title>
+  <link href="../static/css/stylesheet.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="header">
+    <ul class="tab-nav">
+      <li>
+        <a href="dashboard.html" title="dashboard">Dashboard</a>
+      </li>
+      <li>
+        <a href="javacript;:">{{ name }}</a>
+      </li>
+      <li>
+        <a href="index.html" title="landing page">Logout</a>
+      </li>
+    </ul>
+  </div>
+  <div class="home">
+    <div class="container">
+      <div class="todo">
+        <h1>Dashboard</h1>
+        <div class="user-details">
+          <form class="input-box">
+            <input type="text" id="title" placeholder="Add task title to start">
+          </form>
+        </div>
+        <a class="create" href="home.html">Create Task</a>
+        <div class="todo-container">
+          <ul id="task-list">
+            <li>
+              <h3>{{title}}</h3>
+            </li>
+            <li>
+              <p id="review"></p>
+            </li>
+            <li>
+              <button class="review-btn" onclick="reviewFunction()">Write Note</button>
+              <button class="edit-btn">Review Tasks</button>
+              <button class="delete-btn">Delete</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+</body>
+<script>
+  function reviewFunction() {
+    let text;
+    let review = prompt("Please write reflective notes about tasks.");
+    if (review == null || review == "") {
+      text = "write remarks or reflective notes";
+    } else {
+      text = review;
+    }
+    document.getElementById("review").innerHTML = text;
+  }
+</script>
+
+</html>
