@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration</title>
-  <link href="../static/css/stylesheet.css" rel="stylesheet">
-</head>
 
-<body>
+{% block title %}Registration{% endblock %}
+
+{% block content %}
   <div class="registrationPage">
     <div class="container">
       <div class="title">Registration</div>
@@ -58,12 +53,10 @@
 
           <div class="from-item">
             <button class="submit">Submit</button>
-            <button onclick="location.href='index.html'" class="cancel">Cancel</button>
+            <button onclick="location.href={{ url_for ('user.index') }}" class="cancel">Cancel</button>
           </div>
         </div>
       </form>
     </div>
   </div>
-</body>
-
-</html>
+{% endblock %}
