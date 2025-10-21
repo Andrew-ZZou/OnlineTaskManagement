@@ -10,10 +10,10 @@
         <a href="dashboard.html" title="dashboard">Dashboard</a>
       </li>
       <li>
-        <a href="javacript;:">{{ name }}</a>
+        <a href="javacript;:">{{ firstName }}</a>
       </li>
       <li>
-        <a href="index.html" title="landing page">Logout</a>
+        <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
       </li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
             <input type="text" id="title" placeholder="Add task title to start">
           </form>
         </div>
-        <a class="create" href="home.html">Create Task</a>
+        <a class="create" href= "{{url_for('task.home')}}">Create Task</a>
         <div class="todo-container">
           <ul id="task-list">
             <li>

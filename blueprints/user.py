@@ -1,18 +1,13 @@
-from flask import Blueprint, render_template,request, redirect,url_for,flash
+from flask import Blueprint, render_template,request, redirect,url_for,flash,session
 from sqlalchemy.testing.suite.test_reflection import users
 from exts import db
-
-from forms import RegisterForm
+from forms import RegisterForm, LoginForm
 from models import UserModel
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+
 bp = Blueprint('user', __name__, url_prefix="/user")
-
-#landing page
-@bp.route('/')
-def index():
-    return render_template('index.html', methods=['GET', 'POST'])
-
 
 #registration page
 @bp.route('/registration', methods=['GET', 'POST'])
@@ -31,7 +26,7 @@ def registration():
 
             db.session.add(newUser)
             db.session.commit()
-            return redirect(url_for("user.index"))
+            return redirect(url_for("index"))
         else:
             print(form.errors)
             return redirect(url_for("user.registration"))

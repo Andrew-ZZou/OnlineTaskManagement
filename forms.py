@@ -18,4 +18,6 @@ class RegisterForm(wtforms.Form):
         if user:
             raise wtforms.ValidationError("Email already been registered")
 
-
+class LoginForm(wtforms.Form):
+    email = wtforms.StringField(validators=[Email(message="Invalid email")])
+    password = wtforms.StringField(validators=[Length(min=6, message="Invalid password")])
