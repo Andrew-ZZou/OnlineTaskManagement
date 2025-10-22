@@ -1,5 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, session
 from flask import render_template
+from flask_login import current_user
+
+from models import UserModel
 
 bp = Blueprint('task', __name__, url_prefix="/dashboard")
 

@@ -21,7 +21,6 @@ class TaskModel(db.Model):
     review = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(80), nullable=False)
     priority = db.Column(db.String(80), nullable=False)
-
 # Foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 

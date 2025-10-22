@@ -1,61 +1,74 @@
 {% extends "base.html" %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}Update{% endblock %}
 
 
 {% block content %}
+  <div class="header">
+    <ul class="tab-nav">
+      <li>
+        <a href="{{ url_for ('task.dashboard') }}" title="dashboard">Dashboard</a>
+      </li>
+      <li>
+        <a href="{{ url_for ('user.update') }}">{{ user.firstName }}</a>
+      </li>
+      <li>
+        <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
+      </li>
 
+    </ul>
+  </div>
   <div class="registrationPage">
     <div class="container">
-      <div class="title">Registration</div>
+      <div class="title">Details Update</div>
       <form class="registration" method="post">
         <div class="user-details">
 
           <div class="input-box">
             <div data-prop="firstName" class="from-item">
               <span class="details">First Name:</span>
-              <input type="text" placeholder="Your First Name" name="firstName" required>
+              <input type="text" value="{{user.firstName}}" name="firstName" required>
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="lastName" class="from-item">
               <span class="details">Last Name:</span>
-              <input type="text" placeholder="Your Last Name" name="lastName" required>
+              <input type="text" value="{{user.lastName}}" name="lastName" required>
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="email" class="from-item">
               <span class="details">Email Address:</span>
-              <input type="text" placeholder="Your Email Address" name="email" required>
+              <input type="text" value="{{user.email}}" name="email" required>
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="phone" class="from-item">
               <span class="details">Phone Number:</span>
-              <input type="phone" placeholder="Your Phone number" name="phone" required>
+              <input type="phone" value="{{user.phone}}" name="phone" required>
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="password" class="from-item">
               <span class="details">Password:</span>
-              <input required type="password" placeholder="Enter You Password" name="password" id="password">
+              <input required type="password" value="{{user.password}}" name="password" id="password">
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="confirm" class="from-item">
               <span class="details">Confirm Password:</span>
-              <input required type="password" placeholder="Confirm Your Password" name="confirm" id="confirm">
+              <input required type="password" value="{{user.password}}" name="confirm" id="confirm">
             </div>
           </div>
 
           <div class="from-item">
             <button class="submit">Submit</button>
-            <button onclick="location.href={{ url_for ('index') }}" class="cancel">Cancel</button>
+            <button onclick="location.href={{ url_for ('task.dashboard') }}" class="cancel">Cancel</button>
           </div>
         </div>
       </form>

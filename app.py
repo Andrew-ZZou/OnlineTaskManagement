@@ -4,7 +4,6 @@ from exts import db
 from blueprints.user import bp as user_bp
 from blueprints.task import bp as task_bp
 from forms import LoginForm
-
 from models import UserModel
 from werkzeug.security import  check_password_hash
 
@@ -21,6 +20,7 @@ migrate = Migrate(app, db)
 
 app.register_blueprint(user_bp)
 app.register_blueprint(task_bp)
+
 
 #landing/login page
 @app.route('/', methods=['GET', 'POST'])
@@ -39,6 +39,7 @@ def index():
                 return redirect(url_for("index"))
 
             if check_password_hash(user.password, password):
+
                 session['user_id'] = user.id
                 return redirect(url_for("task.dashboard"))
             else:
@@ -62,6 +63,7 @@ def my_before_request():
 @app.context_processor
 def inject_user():
     return {"user" : g.user}
+
 
 app.config['DEBUG'] = True
 

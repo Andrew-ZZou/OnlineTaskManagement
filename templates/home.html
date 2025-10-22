@@ -6,13 +6,13 @@
   <div class="header">
     <ul class="tab-nav">
       <li>
-        <a href="dashboard.html" title="dashboard">Dashboard</a>
+        <a href="{{ url_for ('task.dashboard') }}" title="dashboard">Dashboard</a>
       </li>
       <li>
-        <a href="javacript;:">{{ first_name }}</a>
+        <a href="{{ url_for ('user.update') }}">{{ user.firstName }}</a>
       </li>
       <li>
-        <a href="index.html" title="landing page">Logout</a>
+        <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
       </li>
 
     </ul>
