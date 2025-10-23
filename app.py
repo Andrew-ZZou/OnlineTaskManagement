@@ -39,7 +39,7 @@ def index():
                 return redirect(url_for("index"))
 
             if check_password_hash(user.password, password):
-
+                flash('Login successfully','success')
                 session['user_id'] = user.id
                 return redirect(url_for("task.dashboard"))
             else:

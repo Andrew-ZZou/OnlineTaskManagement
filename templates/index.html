@@ -4,7 +4,15 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p class = "flash-text">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   <div class="landing">
+
     <div class="container">
       <div class="title">Online Task Management</div>
       <form class="login" autocomplete="off" method="post">

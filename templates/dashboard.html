@@ -4,6 +4,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+
   <div class="header">
     <ul class="tab-nav">
       <li>
@@ -17,7 +18,15 @@
       </li>
     </ul>
   </div>
+      {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <span class = "flash-text">{{ message }}</span>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   <div class="home">
+
     <div class="container">
       <div class="todo">
         <h1>Dashboard</h1>
