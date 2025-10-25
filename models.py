@@ -12,6 +12,14 @@ class UserModel(db.Model):
     phone = db.Column(db.String(50), nullable=False,unique=True)
     password = db.Column(db.String(200), nullable=False)
 
+    def __init__(self, firstName, lastName, email, phone, password):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.phone = phone
+        self.password = password
+
+
 #task model
 class TaskModel(db.Model):
     __tablename__ = 'tasks'

@@ -1,12 +1,13 @@
 from flask_migrate import Migrate
 from flask import Flask,render_template,request, redirect,url_for,flash,session,g
+from sqlalchemy.sql.functions import user
+
 from exts import db
 from blueprints.user import bp as user_bp
 from blueprints.task import bp as task_bp
-from forms import LoginForm
+from forms import LoginForm, UpdateForm, RegisterForm
 from models import UserModel
-from werkzeug.security import  check_password_hash
-
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
@@ -41,13 +42,15 @@ def index():
             if check_password_hash(user.password, password):
                 flash('Login successfully','success')
                 session['user_id'] = user.id
-                return redirect(url_for("task.dashboard"))
+                return redirect(url_for("task.dashboard",user_id=user.id))
             else:
                 flash('Wrong password','error')
                 return redirect(url_for("index"))
         else:
             print(form.errors)
             return redirect(url_for("index"))
+
+
 
 @app.before_request
 def my_before_request():
@@ -63,6 +66,8 @@ def my_before_request():
 @app.context_processor
 def inject_user():
     return {"user" : g.user}
+
+
 
 
 app.config['DEBUG'] = True

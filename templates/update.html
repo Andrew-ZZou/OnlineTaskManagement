@@ -21,7 +21,7 @@
   <div class="registrationPage">
     <div class="container">
       <div class="title">Details Update</div>
-      <form class="registration" method="post">
+      <form class="registration" method="post" action = "/user/update">
         <div class="user-details">
 
           <div class="input-box">
@@ -68,7 +68,7 @@
 
           <div class="from-item">
             <button class="submit">Submit</button>
-            <button onclick="location.href={{ url_for ('task.dashboard') }}" class="cancel">Cancel</button>
+            <button class="cancel">Cancel</button>
           </div>
         </div>
       </form>

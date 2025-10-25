@@ -1,6 +1,6 @@
 from flask import Blueprint, session
 from flask import render_template
-from flask_login import current_user
+from blueprints import user
 
 from models import UserModel
 
@@ -14,4 +14,5 @@ def home():
 #dashboard page
 @bp.route('/dashboard')
 def dashboard():
+
     return render_template('dashboard.html')
