@@ -17,82 +17,51 @@
 
     </ul>
   </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <span class = "flash-text">{{ message }}</span>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
   <div class="home">
     <div class="container">
       <div class="todo">
-        <h1>{{ title }} To Do List</h1>
+        <h1>To Do List</h1>
         <div class="user-details">
           <form class="input-box">
+            <select id="task-status" name="task-status" class="task-status">
+              <option value="option1" selected>Yet-to-Do</option>
+              <option value="option2">On-Going</option>
+              <option value="option3">Completed</option>
+            </select>
+            <select id="task-priorities" name="task-priorities" class="task-status">
+              <option value="option1" selected>Low</option>
+              <option value="option2">Medium</option>
+              <option value="option3">High</option>
+            </select>
             <input type="text" id="task-input" placeholder="Add a new task">
             <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
           </form>
         </div>
         <div class="todo-container">
-          <ul id="task-list"></ul>
+          <form class="todo-list">
+            <ul id="task-list">
+              <li>{{tasks.status}}</li>
+              <li>{{tasks.priority}}</li>
+              <li>{{tasks.description}}</li>
+              <li>
+                <div class="task-btns">
+                  <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                  <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </li>
+            </ul>
+          </form>
         </div>
+        <button type="submit">Create To-do List</button>
       </div>
     </div>
   </div>
 
 {% endblock %}
-<script>
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const taskInput = document.getElementById('task-input');
-    const addTaskBtn = document.getElementById('add-task-btn');
-    const taskList = document.getElementById('task-list');
-
-
-    const addTask = (event) => {
-      event.preventDefault();
-      const taskText = taskInput.value.trim();
-      if (!taskText) {
-        return;
-      }
-
-      const li = document.createElement('li')
-      li.innerHTML = `
-        <select id="task-status" name="task-status" class ="task-status">
-          <option value="option1" selected>Yet-to-Do</option>
-          <option value="option2">On-Going</option>
-          <option value="option3">Completed</option>
-        </select>
-        <select id="task-priorities" name="task-priorities" class ="task-status">
-          <option value="option1" selected>Low</option>
-          <option value="option2">Medium</option>
-          <option value="option3">High</option>
-        </select>
-        <span>${taskText}</span>
-        <div class = "task-btns">
-          <button class = "edit-btn"><i class = "fa-solid fa-pen"></i></button>
-          <button class = "delete-btn"><i class = "fa-solid fa-trash"></i></button>
-      `;
-      // delete button
-      li.querySelector('.delete-btn').addEventListener('click', () => {
-        li.remove();
-      })
-      //edit button
-      const editBtn = li.querySelector('.edit-btn');
-      editBtn.addEventListener('click', () => {
-        taskInput.value = li.querySelector('span').textContent;
-        li.remove();
-      });
-
-      //li.textContent = taskText;
-      taskList.appendChild(li);
-      taskInput.value = '';
-    };
-
-    addTaskBtn.addEventListener('click', addTask);
-    taskInput.addEventListener('keypress', (e) => {
-
-      if (e.key === 'Enter') {
-        addTask(e)
-      }
-
-    })
-  })
-
-</script>
-
-</html>

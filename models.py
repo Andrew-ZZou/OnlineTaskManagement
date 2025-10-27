@@ -19,18 +19,34 @@ class UserModel(db.Model):
         self.phone = phone
         self.password = password
 
+class TitleModel(db.Model):
+    __tablename__ = 'titles'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    titleName = db.Column(db.String(80), nullable=False)
+    reviewNote = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __init__(self, id,titleName, reviewNote, user_id):
+        self.id = id
+        self.titleName = titleName
+        self.reviewNote = reviewNote
+        self.user_id = user_id
 
 #task model
 class TaskModel(db.Model):
     __tablename__ = 'tasks'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    review = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(80), nullable=False)
     priority = db.Column(db.String(80), nullable=False)
-# Foreign key
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)# Foreign key
+
+    def __init__(self, description, status, priority, task_id):
+        self.description = description
+        self.status = status
+        self.priority = priority
+        self.task_id = task_id
+
 
 
 

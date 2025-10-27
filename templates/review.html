@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Task Review{% endblock %}
+
+{% block content %}
+
+  <div class="header">
+    <ul class="tab-nav">
+      <li>
+        <a href="{{ url_for ('task.dashboard') }}"  title="dashboard">Dashboard</a>
+      </li>
+      <li>
+        <a href= "/user/update">ID: {{user.id}} -- Name: {{user.firstName}}</a>
+      </li>
+      <li>
+        <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
+      </li>
+    </ul>
+  </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <span class = "flash-text">{{ message }}</span>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  <div class="home">
+    <div class="container">
+      <div class="todo">
+        <h1>Task Review</h1>
+        <form class="input-box" action="/task/review/{{title.id}}" method="POST">
+          <h3>Task: {{title.titleName}}</h3>
+          <div class="user-details">
+            <div data-prop="reviewNote" class="from-item">
+                <input type="text" id="reviewNote" name="reviewNote" value="{{title.reviewNote}}">
+                <button type="submit">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

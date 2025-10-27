@@ -33,6 +33,7 @@ def registration():
             print(form.errors)
             return redirect(url_for("user.registration"))
 
+#user details update page
 @bp.route('/update', methods=['GET', 'POST'])
 def update():
     user_id = session.get('user_id')
@@ -49,7 +50,7 @@ def update():
                 new_lastName = request.form['lastName']
                 new_phone = request.form['phone']
                 new_email = request.form['email']
-                new_password = request.form['password']#need unhash the password!!
+                new_password = request.form['password']
 
                 user_update.firstName = new_firstName
                 user_update.lastName = new_lastName

@@ -6,7 +6,7 @@ from exts import db
 from blueprints.user import bp as user_bp
 from blueprints.task import bp as task_bp
 from forms import LoginForm, UpdateForm, RegisterForm
-from models import UserModel
+from models import UserModel, TaskModel, TitleModel
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -57,10 +57,13 @@ def my_before_request():
     user_id = session.get("user_id")
     if user_id:
         user = UserModel.query.get(user_id)
+        title = TitleModel.query.filter_by(id=user.id).first()
         setattr(g, "user", user)
+        setattr(g, "title", title)
 
     else:
         setattr(g, "user", None)
+        setattr(g, "title", None)
 
 
 @app.context_processor

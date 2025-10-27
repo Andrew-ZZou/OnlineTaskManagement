@@ -166,15 +166,19 @@ button {
 
 .todo .user-details {
   height: 36px;
-  width: 1000px;
+  width: 100%;
 }
 
 .todo .user-details .input-box input {
-  width: 90%;
-  margin-left: 5px;
+  width: 70%;
   float: left;
 }
 
+.todo .user-details select {
+  font-size: 1.2rem;
+  margin-right: 5px;
+  float: left;
+}
 
 .task-list {
   width: 100%;

@@ -30,3 +30,14 @@ class UpdateForm(wtforms.Form):
 class LoginForm(wtforms.Form):
     email = wtforms.StringField(validators=[Email(message="Invalid email")])
     password = wtforms.StringField(validators=[Length(min=6, message="Invalid password")])
+
+class TaskForm(wtforms.Form):
+    description = wtforms.StringField(validators=[Length(max=200, message="Invalid description")])
+    status = wtforms.StringField(validators=[Length(max=80, message="Invalid status")])
+    priority = wtforms.StringField(validators=[Length(max=80, message="Invalid priority")])
+    title_id = wtforms.StringField(validators=[Length(max=80, message="Invalid user id")])
+
+class TitleForm(wtforms.Form):
+    titleName = wtforms.StringField(validators=[Length(max=80, message="Invalid title")])
+    reviewNote = wtforms.StringField(validators=[Length(max=200, message="Invalid review")])
+    user_id = wtforms.StringField(validators=[Length(max=80, message="Invalid user id")])

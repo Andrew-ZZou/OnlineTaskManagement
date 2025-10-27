@@ -31,26 +31,34 @@
       <div class="todo">
         <h1>Dashboard</h1>
         <div class="user-details">
-          <form class="input-box">
-            <input type="text" id="title" placeholder="Add task title to start">
-          </form>
+          <div data-prop="titleName" class="from-item">
+              <form class="input-box" method="POST">
+                <input type="text" id="titleName" name="titleName" placeholder="Add task title to start">
+                <button onclick="location.href={{ url_for ('task.home') }}" type="submit">Create</button>
+              </form>
+          </div>
         </div>
-        <a class="create" href= "{{url_for('task.home')}}">Create Task</a>
+      {% for title in titles_data %}
         <div class="todo-container">
           <ul id="task-list">
             <li>
-              <h3>{{title}}</h3>
+              <h3>{{title.titleName}}: {{title.id}}</h3>
             </li>
             <li>
-              <p id="review"></p>
+              <p id="review">{{title.reviewNote}}</p>
             </li>
             <li>
-              <button class="review-btn" onclick="reviewFunction()">Write Note</button>
+              <form action="/task/review/{{title.id}}" method="POST">
+              <a class="review-btn" href="/task/review/{{title.id}}"><i class="fa-solid fa-pen"></i></a>
+              </form>
               <button class="edit-btn">Review Tasks</button>
-              <button class="delete-btn">Delete</button>
+              <form action="{{ url_for('task.delete',title_id = title.id)}}" method="POST">
+                <button class="delete-btn" type = "submit"><i class="fa-solid fa-trash"></i></button>
+              </form>
             </li>
           </ul>
         </div>
+        {% endfor %}
       </div>
     </div>
   </div>
