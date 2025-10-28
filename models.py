@@ -26,8 +26,7 @@ class TitleModel(db.Model):
     reviewNote = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    def __init__(self, id,titleName, reviewNote, user_id):
-        self.id = id
+    def __init__(self,titleName, reviewNote, user_id):
         self.titleName = titleName
         self.reviewNote = reviewNote
         self.user_id = user_id
@@ -39,13 +38,13 @@ class TaskModel(db.Model):
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(80), nullable=False)
     priority = db.Column(db.String(80), nullable=False)
-    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)# Foreign key
+    title_id = db.Column(db.Integer, db.ForeignKey('titles.id'), nullable=False)# Foreign key
 
-    def __init__(self, description, status, priority, task_id):
+    def __init__(self, description, status, priority, title_id):
         self.description = description
         self.status = status
         self.priority = priority
-        self.task_id = task_id
+        self.title_id = title_id
 
 
 

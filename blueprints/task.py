@@ -24,9 +24,13 @@ def dashboard():
         form = TitleForm(request.form)
         if form.validate():
             titleName = form.titleName.data
-            reviewNote = ""
+            reviewNote = "None"
             user_id = session.get('user_id')
             newTitle = TitleModel(titleName=titleName, reviewNote=reviewNote, user_id=user_id)
+
+            print(newTitle.titleName)
+            print(newTitle.reviewNote)
+            print(newTitle.user_id)
 
             db.session.add(newTitle)
             db.session.commit()

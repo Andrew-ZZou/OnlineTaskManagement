@@ -14,7 +14,6 @@
       <li>
         <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
       </li>
-
     </ul>
   </div>
       {% with messages = get_flashed_messages() %}
@@ -47,9 +46,9 @@
         <div class="todo-container">
           <form class="todo-list">
             <ul id="task-list">
-              <li>{{tasks.status}}</li>
-              <li>{{tasks.priority}}</li>
-              <li>{{tasks.description}}</li>
+              <li>{{status}}</li>
+              <li>{{priority}}</li>
+              <li>{{description}}</li>
               <li>
                 <div class="task-btns">
                   <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>

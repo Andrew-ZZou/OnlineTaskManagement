@@ -26,7 +26,6 @@
     {% endif %}
   {% endwith %}
   <div class="home">
-
     <div class="container">
       <div class="todo">
         <h1>Dashboard</h1>
@@ -34,7 +33,7 @@
           <div data-prop="titleName" class="from-item">
               <form class="input-box" method="POST">
                 <input type="text" id="titleName" name="titleName" placeholder="Add task title to start">
-                <button onclick="location.href={{ url_for ('task.home') }}" type="submit">Create</button>
+                <button type="submit">Create</button>
               </form>
           </div>
         </div>
@@ -42,14 +41,14 @@
         <div class="todo-container">
           <ul id="task-list">
             <li>
-              <h3>{{title.titleName}}: {{title.id}}</h3>
+              <h3>{{title.titleName}}</h3>
             </li>
             <li>
               <p id="review">{{title.reviewNote}}</p>
             </li>
             <li>
               <form action="/task/review/{{title.id}}" method="POST">
-              <a class="review-btn" href="/task/review/{{title.id}}"><i class="fa-solid fa-pen"></i></a>
+              <button class="review-btn" href="/task/review/{{title.id}}" type="submit"><i class="fa-solid fa-pen"></i></button>
               </form>
               <button class="edit-btn">Review Tasks</button>
               <form action="{{ url_for('task.delete',title_id = title.id)}}" method="POST">
