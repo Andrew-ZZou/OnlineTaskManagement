@@ -28,27 +28,28 @@
       <div class="todo">
         <h1>To Do List</h1>
         <div class="user-details">
-          <form class="input-box">
+          <form class="input-box" action="{{ url_for('task.home',title_id=title_id) }}" method="POST">
             <select id="task-status" name="task-status" class="task-status">
-              <option value="option1" selected>Yet-to-Do</option>
-              <option value="option2">On-Going</option>
-              <option value="option3">Completed</option>
+              <option value="Yet-to-Do" selected>Yet-to-Do</option>
+              <option value="On-Going">On-Going</option>
+              <option value="Completed">Completed</option>
             </select>
-            <select id="task-priorities" name="task-priorities" class="task-status">
-              <option value="option1" selected>Low</option>
-              <option value="option2">Medium</option>
-              <option value="option3">High</option>
+            <select id="task-priorities" name="task-priorities" class="task-priorities">
+              <option value="Low" selected>Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
             </select>
-            <input type="text" id="task-input" placeholder="Add a new task">
+            <input type="text" id="description" name="description" placeholder="Add a new task">
             <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
           </form>
         </div>
+        {% for task in tasks_data %}
         <div class="todo-container">
           <form class="todo-list">
             <ul id="task-list">
-              <li>{{status}}</li>
-              <li>{{priority}}</li>
-              <li>{{description}}</li>
+              <li>{{task.status}}</li>
+              <li>{{task.priority}}</li>
+              <li>{{task.description}}</li>
               <li>
                 <div class="task-btns">
                   <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
@@ -58,9 +59,49 @@
             </ul>
           </form>
         </div>
-        <button type="submit">Create To-do List</button>
+        {% endfor %}
       </div>
     </div>
   </div>
 
 {% endblock %}
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  const taskInput = document.getElementById('task-input');
+  const addTaskBtn = document.getElementById('add-task-btn');
+  const taskList = document.getElementById('task-list');
+
+
+  const addTask = (event) => {
+    event.preventDefault();
+    const taskText = taskInput.value.trim();
+    if (!taskText) {
+      return;
+    }
+    // delete button
+    li.querySelector('.delete-btn').addEventListener('click', () => {
+      li.remove();
+    })
+    //edit button
+    const editBtn = li.querySelector('.edit-btn');
+    editBtn.addEventListener('click', () => {
+      taskInput.value = li.querySelector('span').textContent;
+      li.remove();
+    });
+
+    //li.textContent = taskText;
+    taskList.appendChild(li);
+    taskInput.value = '';
+  };
+
+  addTaskBtn.addEventListener('click', addTask);
+  taskInput.addEventListener('keypress', (e) => {
+
+    if (e.key === 'Enter') {
+      addTask(e)
+    }
+
+  })
+})
+</script>

@@ -32,10 +32,12 @@ def dashboard():
             print(newTitle.reviewNote)
             print(newTitle.user_id)
 
+
             db.session.add(newTitle)
             db.session.commit()
-            flash("Task added successfully")
-            return redirect(url_for("task.home"))
+            title_id = newTitle.id                                               # can be removed????
+            flash("New task list created successfully")
+            return redirect(url_for("task.dashboard",title_id=title_id)) #title_id = title_id canbe removed?
         else:
             flash("Cannot find user")
             print(form.errors)
@@ -44,64 +46,61 @@ def dashboard():
 @bp.route('/review/<int:title_id>',methods=['GET', 'POST'])
 def review(title_id):
     # print(title_id)
-    review_title = db.session.execute(db.select(TitleModel).filter_by(id=title_id)).scalar_one()
+    review_title = TitleModel.query.get_or_404(title_id)
+    form = TitleForm(request.form)
+    if request.method == 'POST':
 
-    if review_title:
-        if request.method == 'POST':
-            form = TitleForm(request.form)
-            if form.validate():
+        if form.validate():
 
-                new_titleName = review_title.titleName
-                new_reviewNote = request.form['reviewNote']
-                new_user_id = session.get('user_id')
-                db.session.delete(review_title)
+            review_title.reviewNote = request.form.get('reviewNote',"").strip()
+            review_title.user_id = session.get('user_id')
 
-                review_title.id = title_id
-                review_title.titleName = new_titleName
-                review_title.ReviewNote = new_reviewNote
-                review_title.user_id = new_user_id
-
-                print(review_title.titleName)
-                print(review_title.ReviewNote)
-                print(review_title.user_id)
-
-                new_review_title = TitleModel(id=review_title.id,titleName=review_title.titleName, reviewNote=review_title.ReviewNote, user_id=review_title.user_id)
-                db.session.add(new_review_title)
-                db.session.commit()
-                flash("Note added successfully")
-                return redirect(url_for("task.dashboard"))
-            else:
-                flash("Note added unsuccessfully")
-                return redirect(url_for("task.review"))
-
-        elif request.method == 'GET':
-                print(review_title)
-                return render_template('review.html', title=review_title)
-
-@bp.route('/delete/<int:title_id>',methods=['GET', 'POST'])
-def delete(title_id):
-    review_title = db.session.execute(db.select(TitleModel).filter_by(id=title_id)).scalar_one()
-    if review_title:
-        if request.method == 'POST':
-            db.session.delete(review_title)
             db.session.commit()
-            flash("Note deleted successfully")
-            return redirect(url_for("task.dashboard"))
+            flash("Note added successfully")
+            return redirect(url_for("task.dashboard",title_id=title_id))
         else:
-            flash("Note deleted unsuccessfully")
-            return redirect(url_for("task.dashboard"))
+            flash("Note added unsuccessfully")
+            return redirect(url_for("task.review",title_id=title_id))
+
+    else:
+            # print(review_title)
+            return render_template('review.html', title=review_title,form=form)
+
+@bp.route('/delete/<int:title_id>',methods=['POST'])
+def delete(title_id):
+    delete_title = TitleModel.query.get_or_404(title_id)
+
+    TaskModel.query.filter_by(title_id=title_id).delete()
+    db.session.delete(delete_title)
+    db.session.commit()
+    flash("Task deleted successfully")
+
+    return redirect(url_for("task.dashboard"))
 
 #add task page
-@bp.route('/home',methods=['GET', 'POST'])
-def home():
+@bp.route('/home/<int:title_id>',methods=['GET', 'POST'])
+def home(title_id):
+    if request.method == 'POST':
 
-    if request.method == 'GET':
+            description = request.form['description']
+            status = request.form.get('task-status')
+            priority = request.form.get('task-priorities')
 
-        tasks = db.session.query(TaskModel).all()
+            print(description)
+            print(status)
+            print(priority)
+            print(title_id)
 
-        return render_template('home.html', tasks=tasks)
+            new_task = TaskModel(description=description, status=status, priority=priority, title_id=title_id)
+
+            db.session.add(new_task)
+            db.session.commit()
+
+            flash("Task add successfully")
+            return redirect(url_for("task.home",title_id=title_id))
     else:
-        return render_template('home.html')
+        tasks_data = TaskModel.query.filter_by(title_id=title_id).all()
+        return render_template('home.html',tasks_data=tasks_data,title_id=title_id)
 
 
 

@@ -33,8 +33,8 @@ class LoginForm(wtforms.Form):
 
 class TaskForm(wtforms.Form):
     description = wtforms.StringField(validators=[Length(max=200, message="Invalid description")])
-    status = wtforms.StringField(validators=[Length(max=80, message="Invalid status")])
-    priority = wtforms.StringField(validators=[Length(max=80, message="Invalid priority")])
+    status = wtforms.SelectField(choices=[("Yet-to-Do", "Yet-to-Do"), ("On-Going", "On-Going"),("Completed","Completed")])
+    priority = wtforms.SelectField(choices=[("Low", "Low"), ("Medium", "Medium"),("High","High")])
     title_id = wtforms.StringField(validators=[Length(max=80, message="Invalid user id")])
 
 class TitleForm(wtforms.Form):
