@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+  <div class="header">
+    <ul class="tab-nav">
+      <li>
+        <a href="{{ url_for ('task.dashboard') }}" title="dashboard">Dashboard</a>
+      </li>
+      <li>
+        <a href="{{ url_for ('user.update') }}">{{ user.firstName }}</a>
+      </li>
+      <li>
+        <a href="{{ url_for ('index') }}" title="landing page">Logout</a>
+      </li>
+    </ul>
+  </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <span class = "flash-text">{{ message }}</span>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  <div class="home">
+    <div class="container">
+      <div class="todo">
+        <h1>Edit Task</h1>
+        <div class="user-details">
+          <form class="input-box" action="{{ url_for('task.editTask',task_id=task.id) }}" method="POST">
+
+            <select id="task-status" name="task-status" class="task-status">
+              <option value="Yet-to-Do" {% if task.status == "Yet-to-Do" %} selected {% endif %}>Yet-to-Do</option>
+              <option value="On-Going" {% if task.status == "On-Going" %} selected {% endif %}>On-Going</option>
+              <option value="Completed" {% if task.status == "Completed" %} selected {% endif %}>Completed</option>
+            </select>
+
+            <select id="task-priorities" name="task-priorities" class="task-priorities">
+              <option value="Low" {% if task.priority == "Low"%} selected {% endif %}>Low</option>
+              <option value="Medium" {% if task.priority == "Medium"%} selected {% endif %}>Medium</option>
+              <option value="High" {% if task.priority == "High"%} selected {% endif %}>High</option>
+            </select>
+
+            <input type="text" id="description" name="description" value="{{task.description}}">
+            <button class="btn" type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+
+          </form>
+        </div>
+        <div class="edit-btns">
+            <a class="btn" href="{{url_for('task.home',title_id=task.title_id)}}"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -47,11 +47,13 @@
               <p id="review">{{title.reviewNote}}</p>
             </li>
             <li>
-              <a class="btn" href="{{ url_for('task.review', title_id=title.id) }}"><i class="fa-solid fa-comment"></i></a>
-              <a class="btn" href="{{ url_for('task.home', title_id=title.id) }}"><i class="fa-solid fa-pen"></i></a>
-              <form action="{{ url_for('task.delete',title_id = title.id)}}" method="POST">
-                <button class="btn" type = "submit"><i class="fa-solid fa-trash"></i></button>
-              </form>
+              <div class="btn-container">
+                <a class="btn" href="{{ url_for('task.review', title_id=title.id) }}"><i class="fa-solid fa-comment"></i></a>
+                <a class="btn" href="{{ url_for('task.home', title_id=title.id) }}"><i class="fa-solid fa-pen"></i></a>
+                <form action="{{ url_for('task.delete',title_id = title.id)}}" method="POST">
+                  <button class="btn" type = "submit"><i class="fa-solid fa-trash"></i></button>
+                </form>
+              </div>
             </li>
           </ul>
         </div>

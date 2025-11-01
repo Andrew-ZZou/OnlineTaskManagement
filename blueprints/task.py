@@ -28,10 +28,9 @@ def dashboard():
             user_id = session.get('user_id')
             newTitle = TitleModel(titleName=titleName, reviewNote=reviewNote, user_id=user_id)
 
-            print(newTitle.titleName)
-            print(newTitle.reviewNote)
-            print(newTitle.user_id)
-
+            # print(newTitle.titleName)
+            # print(newTitle.reviewNote)
+            # print(newTitle.user_id)
 
             db.session.add(newTitle)
             db.session.commit()
@@ -43,6 +42,7 @@ def dashboard():
             print(form.errors)
             return redirect(url_for("task.dashboard"))
 
+# write review note
 @bp.route('/review/<int:title_id>',methods=['GET', 'POST'])
 def review(title_id):
     # print(title_id)
@@ -66,6 +66,7 @@ def review(title_id):
             # print(review_title)
             return render_template('review.html', title=review_title,form=form)
 
+# delete function for all tasks under same title
 @bp.route('/delete/<int:title_id>',methods=['POST'])
 def delete(title_id):
     delete_title = TitleModel.query.get_or_404(title_id)
@@ -77,7 +78,7 @@ def delete(title_id):
 
     return redirect(url_for("task.dashboard"))
 
-#add task page
+#adding tasks page
 @bp.route('/home/<int:title_id>',methods=['GET', 'POST'])
 def home(title_id):
     if request.method == 'POST':
@@ -86,11 +87,7 @@ def home(title_id):
             status = request.form.get('task-status')
             priority = request.form.get('task-priorities')
 
-            print(description)
-            print(status)
-            print(priority)
-            print(title_id)
-
+            #Adding new task
             new_task = TaskModel(description=description, status=status, priority=priority, title_id=title_id)
 
             db.session.add(new_task)
@@ -99,8 +96,44 @@ def home(title_id):
             flash("Task add successfully")
             return redirect(url_for("task.home",title_id=title_id))
     else:
+        #display all tasks from same title
         tasks_data = TaskModel.query.filter_by(title_id=title_id).all()
         return render_template('home.html',tasks_data=tasks_data,title_id=title_id)
 
+
+# delete tasks
+@bp.route('/deleteTask/<int:task_id>',methods=['POST'])
+def deleteTask(task_id):
+
+    delete_task = TaskModel.query.get_or_404(task_id)
+
+    title_id = delete_task.title_id
+
+    # print(f"Delete Task {task_id}")
+
+    db.session.delete(delete_task)
+    db.session.commit()
+    flash("Task deleted successfully")
+
+    return redirect(url_for("task.home",title_id = title_id))
+
+@bp.route('/editTask/<int:task_id>',methods=['GET', 'POST'])
+def editTask(task_id):
+    # edit_task = TaskModel.query.get_or_404(task_id)
+    edit_task = db.session.execute(db.select(TaskModel).filter_by(id = task_id)).scalar_one()
+
+    if request.method == 'POST':
+
+        edit_task.description = request.form.get('description')
+        edit_task.status = request.form.get('task-status')
+        edit_task.priority = request.form.get('task-priorities')
+
+        # print(request.form)
+
+        db.session.commit()
+        flash("Task edited successfully")
+        return redirect(url_for("task.home",title_id = edit_task.title_id))
+    else:
+        return render_template('editTask.html',task=edit_task)
 
 
