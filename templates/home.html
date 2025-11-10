@@ -42,6 +42,7 @@
             <input type="text" id="description" name="description" placeholder="Add a new task">
             <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
           </form>
+
         </div>
         {% for task in tasks_data %}
         <div class="todo-container">
@@ -50,12 +51,22 @@
               <li>Status: {{task.status}}</li>
               <li>Priority: {{task.priority}}</li>
               <li>{{task.description}}</li>
+              {% if task.image %}
+              <li>
+                <image src = "{{url_for ('static', filename = 'media/' + task.image) }}"
+                       alt = "Task Image" height="200" width = "200" onerror ="this.onerror = null; this.style.display = 'none'"></image>
+              </li>
+              {% endif %}
               <li>
                 <div class="task-btns">
                   <div class="btn-container">
                     <form action="{{ url_for ('task.editTask',task_id = task.id) }}" method="POST">
                       <a class="btn" href="{{ url_for('task.editTask', task_id = task.id) }}"><i class="fa-solid fa-pen"></i></a>
                     </form>
+                    <form action="{{ url_for('task.upload', task_id=task.id) }}" method="POST" enctype="multipart/form-data" style="display:inline-block;">
+                      <label class="btn" for="file-{{ task.id }}"> <i class="fa-solid fa-image"></i></label>
+                      <input id="file-{{ task.id }}" type="file" name="image" accept="image/*" style="display:none;" onchange="this.form.submit();">
+                  </form>
                     <form action="{{ url_for ('task.deleteTask',task_id = task.id) }}" method="POST">
                       <button class="btn" type="submit"><i class="fa-solid fa-trash"></i></button>
                     </form>

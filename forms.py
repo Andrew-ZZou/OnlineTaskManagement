@@ -36,6 +36,7 @@ class TaskForm(wtforms.Form):
     status = wtforms.SelectField(choices=[("Yet-to-Do", "Yet-to-Do"), ("On-Going", "On-Going"),("Completed","Completed")])
     priority = wtforms.SelectField(choices=[("Low", "Low"), ("Medium", "Medium"),("High","High")])
     title_id = wtforms.StringField(validators=[Length(max=80, message="Invalid user id")])
+    image = wtforms.StringField(validators=[Length(max=200, message="Invalid image")])
 
 class TitleForm(wtforms.Form):
     titleName = wtforms.StringField(validators=[Length(max=80, message="Invalid title")])

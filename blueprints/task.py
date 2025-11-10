@@ -1,10 +1,11 @@
+import os
 from asyncio import tasks
-
 from alembic.script.write_hooks import console_scripts
 from flask import Blueprint, session, request, redirect, url_for, flash
 from flask import render_template
 from form import form
-
+from werkzeug.utils import secure_filename
+from common.image import Image
 from blueprints import user
 from exts import db
 from forms import TaskForm, TitleForm
@@ -12,6 +13,13 @@ from forms import TaskForm, TitleForm
 from models import UserModel, TaskModel, TitleModel
 
 bp = Blueprint('task', __name__, url_prefix="/task")
+
+#set upload image file and file extension name
+UPLOAD_FOLDER = 'static/media/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 #dashboard page
 @bp.route('/dashboard',methods=['GET', 'POST'])
@@ -86,9 +94,10 @@ def home(title_id):
             description = request.form['description']
             status = request.form.get('task-status')
             priority = request.form.get('task-priorities')
+            image = ""
 
             #Adding new task
-            new_task = TaskModel(description=description, status=status, priority=priority, title_id=title_id)
+            new_task = TaskModel(description=description, status=status, priority=priority, title_id=title_id,image=image)
 
             db.session.add(new_task)
             db.session.commit()
@@ -108,6 +117,12 @@ def deleteTask(task_id):
     delete_task = TaskModel.query.get_or_404(task_id)
 
     title_id = delete_task.title_id
+
+    #delete image
+    if delete_task.image:
+        file_path = os.path.join('static/media', delete_task.image)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     # print(f"Delete Task {task_id}")
 
@@ -137,3 +152,41 @@ def editTask(task_id):
         return render_template('editTask.html',task=edit_task)
 
 
+@bp.route('/upload/<int:task_id>',methods=['GET','POST'])
+def upload(task_id):
+    uploadImage_task = db.session.execute(db.select(TaskModel).filter_by(id=task_id)).scalar_one()
+
+    if request.method == 'POST':
+
+        file = request.files['image']
+
+        if 'image' not in request.files:
+            flash("No file provided")
+            return redirect(url_for("task.home",title_id = uploadImage_task.title_id))
+
+        if file.filename == '':
+            flash("No file selected for uploading")
+            return redirect(url_for("task.home",title_id = uploadImage_task.title_id))
+
+        if file and allowed_file(file.filename):
+
+            file_path = Image.get_images_path()
+            filename = secure_filename(file.filename)
+            fullpath = file_path.joinpath(filename)
+            file.save(fullpath)
+
+            print(filename)
+
+            uploadImage_task.image=filename
+
+            db.session.commit()
+
+            flash("Uploaded successfully")
+            return redirect(url_for("task.home",title_id = uploadImage_task.title_id))
+
+        else:
+            flash("File type not supported.")
+            return redirect(url_for("task.home",title_id = uploadImage_task.title_id))
+
+    else:
+        return redirect(url_for("task.home",title_id = uploadImage_task.title_id))

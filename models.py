@@ -40,13 +40,16 @@ class TaskModel(db.Model):
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(80), nullable=False)
     priority = db.Column(db.String(80), nullable=False)
+    image = db.Column(db.String(255),nullable=False)
     title_id = db.Column(db.Integer, db.ForeignKey('titles.id',ondelete="CASCADE"), nullable=False)# Foreign key
 
-    def __init__(self, description, status, priority, title_id):
-        self.description = description
-        self.status = status
-        self.priority = priority
-        self.title_id = title_id
+    # def __init__(self, description, status, priority, title_id, image):
+    #     self.description = description
+    #     self.status = status
+    #     self.priority = priority
+    #     self.title_id = title_id
+    #     self.image = image
+
 
 
 
