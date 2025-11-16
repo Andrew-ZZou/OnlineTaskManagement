@@ -54,7 +54,8 @@
               {% if task.image %}
               <li>
                 <image src = "{{url_for ('static', filename = 'media/' + task.image) }}"
-                       alt = "Task Image" height="200" width = "200" onerror ="this.onerror = null; this.style.display = 'none'"></image>
+                       alt = "Task Image" height="200" width = "200" onerror ="this.onerror = null;
+                       this.style.display = 'none'"></image>
               </li>
               {% endif %}
               <li>

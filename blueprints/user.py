@@ -24,13 +24,14 @@ def registration():
             email = form.email.data
             phone = form.phone.data
             password = form.password.data
-            newUser = UserModel(firstName = firstName, lastName = lastName, phone = phone, email=email, password=generate_password_hash(password))
+            newUser = UserModel(firstName = firstName, lastName = lastName,
+                                phone = phone, email=email, password=generate_password_hash(password))
 
             db.session.add(newUser)
             db.session.commit()
             return redirect(url_for("index"))
         else:
-            print(form.errors)
+            flash("Entered wrong data!")
             return redirect(url_for("user.registration"))
 
 #user details update page

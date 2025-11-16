@@ -2,9 +2,14 @@
 
 {% block title %}Registration{% endblock %}
 
-
 {% block content %}
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p class = "flash-text">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   <div class="registrationPage">
     <div class="container">
       <div class="title">Registration</div>
@@ -41,20 +46,20 @@
           <div class="input-box">
             <div data-prop="password" class="from-item">
               <span class="details">Password:</span>
-              <input required type="password" placeholder="Enter You Password" name="password" id="password">
+              <input type="password" placeholder="Enter You Password" name="password" id="password" required>
             </div>
           </div>
 
           <div class="input-box">
             <div data-prop="confirm" class="from-item">
               <span class="details">Confirm Password:</span>
-              <input required type="password" placeholder="Confirm Your Password" name="confirm" id="confirm">
+              <input type="password" placeholder="Confirm Your Password" name="confirm" id="confirm" required>
             </div>
           </div>
 
           <div class="from-item">
             <button class="submit">Submit</button>
-            <button onclick="location.href={{ url_for ('index') }}" class="cancel">Cancel</button>
+            <button type="button" onclick="location.href='{{ url_for ('index') }}'" class="cancel">Cancel</button>
           </div>
         </div>
       </form>

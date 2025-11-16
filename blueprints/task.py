@@ -151,9 +151,10 @@ def editTask(task_id):
     else:
         return render_template('editTask.html',task=edit_task)
 
-
+# upload images
 @bp.route('/upload/<int:task_id>',methods=['GET','POST'])
 def upload(task_id):
+
     uploadImage_task = db.session.execute(db.select(TaskModel).filter_by(id=task_id)).scalar_one()
 
     if request.method == 'POST':
@@ -175,7 +176,7 @@ def upload(task_id):
             fullpath = file_path.joinpath(filename)
             file.save(fullpath)
 
-            print(filename)
+            #print(filename)
 
             uploadImage_task.image=filename
 
